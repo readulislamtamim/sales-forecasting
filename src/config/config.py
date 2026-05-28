@@ -15,7 +15,7 @@ try:
 
 except:
 
-    PROJECT_ROOT = rf'G:/My Drive/Data Science/Personal/{PROJECT_NAME}'
+    PROJECT_ROOT = rf'D:/Data-Science/Projects/Personal/{PROJECT_NAME}'
 
     print("Running in local environment.")
 
