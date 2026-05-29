@@ -49,9 +49,9 @@ class DataCleaner:
     
     def convert_types(self):
         self.dataframe["Date"] = pd.to_datetime(self.dataframe["Date"])
-
+        self.dataframe["StateHoliday"] = self.dataframe["StateHoliday"].astype(str)
         self.dataframe["StateHoliday"] = self.dataframe["StateHoliday"].astype("category")
-
+        self.dataframe["SchoolHoliday"] = self.dataframe["SchoolHoliday"].astype(int)
         return self.dataframe
     
     def remove_duplicates(self):

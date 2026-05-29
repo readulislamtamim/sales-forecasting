@@ -38,3 +38,28 @@ class FeatureEngineer:
         self.dataframe["month"] = self.dataframe["date"].dt.month
         self.dataframe["day"] = self.dataframe["date"].dt.day
         return self.dataframe
+    
+    def day_of_week(self):
+        self.dataframe.rename(columns = {"dayofweek":"day_of_week"}, inplace = True)
+        return self.dataframe
+    
+    def add_holiday_flags(self):
+        def map_state_holiday(value):
+            if value == "0":
+                return 0
+            else:
+                return 1
+        
+        self.dataframe["is_state_holiday"] = self.dataframe["stateholiday"].apply(map_state_holiday)
+        self.dataframe["is_school_holiday"] = self.dataframe["schoolholiday"]
+        return self.dataframe
+    
+    def add_interaction_features(self):
+        self.dataframe["promo_weekday_interaction"] = self.dataframe["promo"] * self.dataframe["day_of_week"]
+        self.dataframe["promo_stateholiday_interaction"] = self.dataframe["promo"] * self.dataframe["is_state_holiday"]
+        return self.dataframe
+    
+    def add_lag_features(self):
+        self.dataframe = self.dataframe.sort_values("date")
+        self.dataframe["sales_lag_1"] = self.dataframe["sales"].shift(1)
+        return self.dataframe
