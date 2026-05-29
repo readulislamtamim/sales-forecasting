@@ -53,3 +53,12 @@ class DataCleaner:
         self.dataframe["StateHoliday"] = self.dataframe["StateHoliday"].astype("category")
 
         return self.dataframe
+    
+    def remove_duplicates(self):
+
+        self.dataframe = self.dataframe.drop_duplicates()
+        return self.dataframe
+
+    def normalize_columns(self):
+        self.dataframe.columns = self.dataframe.columns.str.lower().str.replace(" ", "_")
+        return self.dataframe
