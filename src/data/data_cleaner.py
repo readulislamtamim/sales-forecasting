@@ -62,3 +62,7 @@ class DataCleaner:
     def normalize_columns(self):
         self.dataframe.columns = self.dataframe.columns.str.lower().str.replace(" ", "_")
         return self.dataframe
+    
+    def filter_rows(self, condition_column = "open", condition_column_value = 1):
+        self.dataframe = self.dataframe[self.dataframe[condition_column] == condition_column_value]
+        return self.dataframe
