@@ -30,18 +30,24 @@ if PROJECT_ROOT not in sys.path:
 
 #%%
 from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
 
 class ModelBuilder:
     def __init__(self, dataframe):
         self.dataframe = dataframe
         self.model = None
     
-    def train_baseline_model(self, feature_columns, target_column):
+    def train_test_split(self, feature_columns, target_column, test_size = 0.2, random_state = 42):
         X = self.dataframe[feature_columns]
         y = self.dataframe[target_column]
 
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state = random_state)
+
+        return X_train, X_test, y_train, y_test
+
+    def train_baseline_model(self, X_train, y_train):
         self.model = LinearRegression()
-        self.model.fit(X, y)
+        self.model.fit(X_train, y_train)
 
         return self.model
 
